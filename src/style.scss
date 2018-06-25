@@ -1,0 +1,58 @@
+$navy_blue:rgb(24, 18, 30);
+$gun_metal:rgb(35, 50, 55);
+$rusty_red:rgb(152, 75, 67);
+$warm_yellow:rgb(234, 198, 122);
+$font:Sacramento,
+cursive;
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+#header-bar {
+    width: 100%;
+    height: 6vh;
+    background: $navy_blue;
+    img {
+        width: 4vw;
+        height: 4vw;
+        border-bottom-left-radius: 1vw;
+        border-bottom-right-radius: 1vw;
+        border: 0.5vw solid $navy_blue;
+        position: absolute;
+        top: 0px;
+        left: 6vw;
+    }
+    h1 {
+        line-height: 6vh;
+        color: white;
+        position: absolute;
+        top: 0px;
+        left: 12vw;
+        font-size: 2vw;
+        font-family: $font;
+    }
+}
+
+.container {
+    width: 100vw;
+    height: 94vh;
+    position: absolute;
+    top: 6vh;
+    .box {
+        width: 90%;
+        height: 90%;
+        overflow: auto;
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: $gun_metal;
+        border-radius: 0.5vw;
+        opacity: 0.9;
+    }
+}
