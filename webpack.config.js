@@ -32,6 +32,10 @@ module.exports={
 				use:{
 					loader:'file-loader'
 				}			
+			},
+			{
+				test:/\.json$/,
+				use:'json-loader'
 			}			
 		]
 	},

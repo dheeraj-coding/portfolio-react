@@ -28,10 +28,11 @@ sans-serif;
         position: absolute;
         top: 0px;
         left: 6vw;
+        z-index: 2;
     }
     h1 {
         line-height: 6vh;
-        color: white;
+        color: $shell;
         position: absolute;
         top: 0px;
         left: 12vw;
@@ -45,6 +46,7 @@ sans-serif;
     height: 94vh;
     position: absolute;
     top: 6vh;
+    background-color: $rusty_red;
     .box {
         width: 90%;
         height: 90%;
@@ -56,7 +58,7 @@ sans-serif;
         bottom: 0;
         right: 0;
         box-sizing: border-box;
-        background-color: $gun_metal;
+        background-color: $navy_blue;
         border-radius: 0.5vw;
         opacity: 0.9;
         padding: 4vw;
@@ -80,9 +82,17 @@ sans-serif;
                     width: 100%;
                     margin-top: -0.75em;
                     top: 50%;
-                    font-size: 8em;
+                    font-size: 8vw;
                     color: $shell;
                 }
+            }
+            #indicator {
+                margin-left: -2em;
+                margin-top: -1.5em;
+                list-style: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
             }
         }
     }
