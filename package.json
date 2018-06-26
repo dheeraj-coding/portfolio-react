@@ -30,6 +30,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-feather": "^1.1.0",
+    "reactparticles.js": "^1.1.6",
     "sass": "^1.7.0",
     "sass-loader": "^7.0.3"
   }

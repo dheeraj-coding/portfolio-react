@@ -47,6 +47,7 @@ sans-serif;
     position: absolute;
     top: 6vh;
     background-color: $rusty_red;
+    overflow: hidden;
     .box {
         width: 90%;
         height: 90%;
@@ -62,6 +63,7 @@ sans-serif;
         border-radius: 0.5vw;
         opacity: 0.9;
         padding: 4vw;
+        z-index: 1;
         #slider {
             display: inline-block;
             list-style: none;
