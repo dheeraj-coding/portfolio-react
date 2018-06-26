@@ -15,7 +15,7 @@ class Header extends React.Component{
 class Menu extends React.Component{
     render(){
         return(
-            <li onWheel={this.props.onWheel}><div>{this.props.name}</div></li>
+            <li onWheel={this.props.onWheel} ><div>{this.props.name}</div></li>
         );
     }
 }
@@ -25,31 +25,39 @@ class Slider extends React.Component{
         super(props);
         this.menuList=['Home','Works','About','Resume'];
         this.handleWheel=this.handleWheel.bind(this);
-        this.handleKeyPress=this.handleKeyPress.bind(this);
     }
     
     handleWheel(i){
         return function (event){
-            let rect=document.getElementById("slider").children[i].getBoundingClientRect();
+            event.preventDefault();
+            event.stopPropagation();
+            let rectObj=document.getElementById("slider").children[i].getBoundingClientRect();
+            let scrollPoint=rectObj.height*i;
+            function scroller(dir,timerID){
+                if(dir){
+                    if(scrollPoint<rectObj.height*(i+1)){
+                        scrollPoint+=50;
+                        document.getElementById("slider").scrollTo(0,scrollPoint);    
+                    }else{
+                        document.getElementById("slider").scrollTo(0,rectObj.height*(i+1));
+                        clearInterval(timerID);
+                    }
+                }else{
+                    if(scrollPoint>rectObj.height*(i-1)){
+                        scrollPoint-=50;
+                        document.getElementById("slider").scrollTo(0,scrollPoint);    
+                    }else{
+                        document.getElementById("slider").scrollTo(0,rectObj.height*(i-1));
+                        clearInterval(timerID);
+                    }
+                }
+
+            }
             if(event.deltaY>0){
-                document.getElementById("slider").scrollTo(0,rect.height*(i+1));
+                let timerID=setInterval(()=>scroller(1,timerID),10);
             }
             if(event.deltaY<0){
-                document.getElementById("slider").scrollTo(0,rect.height*(i-1));
-            }
-            
-        }
-    }
-
-    handleKeyPress(i){
-        return function (event){
-            console.log(event.key);
-            let rect=document.getElementById("slider").children[i].getBoundingClientRect();
-            if(event.keyCode===38){
-                document.getElementById("slider").scrollTo(0,rect.height*(i+1));
-            }
-            if(event.keyCode===40){
-                document.getElementById("slider").scrollTo(0,rect.height*(i-1));
+                let timerID=setInterval(()=>scroller(0,timerID),10);
             }
             
         }
