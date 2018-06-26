@@ -2,9 +2,13 @@ $navy_blue:rgb(24, 18, 30);
 $gun_metal:rgb(35, 50, 55);
 $rusty_red:rgb(152, 75, 67);
 $warm_yellow:rgb(234, 198, 122);
-$font:Sacramento,
-cursive;
+$shell:rgb(248, 238, 231);
 @import url('https://fonts.googleapis.com/css?family=Sacramento');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+$font_sacramento:Sacramento,
+cursive;
+$font_slider: 'Great Vibes',
+sans-serif;
 * {
     margin: 0px;
     padding: 0px;
@@ -32,7 +36,7 @@ cursive;
         top: 0px;
         left: 12vw;
         font-size: 2vw;
-        font-family: $font;
+        font-family: $font_sacramento;
     }
 }
 
@@ -51,8 +55,35 @@ cursive;
         left: 0;
         bottom: 0;
         right: 0;
+        box-sizing: border-box;
         background-color: $gun_metal;
         border-radius: 0.5vw;
         opacity: 0.9;
+        padding: 4vw;
+        #slider {
+            display: inline-block;
+            list-style: none;
+            width: 50%;
+            height: 100%;
+            border-right: 2pt solid $rusty_red;
+            box-sizing: border-box;
+            overflow: hidden;
+            li {
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                position: relative;
+                div {
+                    font-family: $font_slider;
+                    text-align: center;
+                    position: absolute;
+                    width: 100%;
+                    margin-top: -0.75em;
+                    top: 50%;
+                    font-size: 8em;
+                    color: $shell;
+                }
+            }
+        }
     }
 }
