@@ -5,6 +5,7 @@ import Profile from './assets/images/profile.jpeg';
 import X from 'react-feather/dist/icons/x';
 import Circle from 'react-feather/dist/icons/circle';
 import Particles from 'reactparticles.js';
+import HomeProfile from './assets/images/home_profile.jpg'
 function generateMenu(i){
     return(<Menu name={this.menuList[i]} 
         onWheel={(function(event){
@@ -155,6 +156,35 @@ class Slider extends React.Component{
         );
     }
 }
+class Content extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return(
+            <div id="content-box">
+                <div id="home">
+                    <div>
+                        <h1>McDhee,</h1>
+                        <p>                        
+                            the creative portfolio of 
+                        </p>
+                        <h1>Dheeraj Mohan</h1>
+                        <hr/>
+                        <p>
+                            <span>Full stack web developer,&nbsp;</span>Machine Learning Enthusiast,&nbsp;
+                            <span>&nbsp;Comic</span> and <span>a perfectionist</span> with love for open source software.
+                        </p>
+                    </div>
+                    
+                    
+                    
+                </div>
+
+            </div>
+        );
+    }
+}
 class Box extends React.Component{
     constructor(props){
         super(props);
@@ -168,6 +198,7 @@ class Box extends React.Component{
         return(
             <div className="box">
                 <Slider update={this.updateState} focus={this.state.active}/>
+                <Content/>
             </div>
             
         );

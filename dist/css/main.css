@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Sacramento);
 @import url(https://fonts.googleapis.com/css?family=Great+Vibes);
+@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);
 * {
   margin: 0px;
   padding: 0px;
@@ -80,4 +81,26 @@
         position: fixed;
         top: 50%;
         left: 50%; }
+    .container .box #content-box {
+      float: right;
+      display: inline-block;
+      width: 50%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 1em;
+      font-family: "Happy Monkey", cursive;
+      color: #f8eee7; }
+      .container .box #content-box #home {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        text-align: right; }
+        .container .box #content-box #home span {
+          font-family: Sacramento, cursive;
+          font-size: 3vw;
+          color: #984b43;
+          font-weight: bold; }
+        .container .box #content-box #home p {
+          font-family: "Happy Monkey", cursive;
+          font-size: 1.5vw; }
 
