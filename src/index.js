@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.scss';
-import Profile from './profile.jpeg';
+import Profile from './assets/images/profile.jpeg';
 import X from 'react-feather/dist/icons/x';
 import Circle from 'react-feather/dist/icons/circle';
 import Particles from 'reactparticles.js';
@@ -67,7 +67,7 @@ class Slider extends React.Component{
             let scrollPoint=rectObj.height*i;
             function scroller(dir,timerID){
                 if(dir){
-                    if(scrollPoint<rectObj.height*(i+1)){
+                    if((scrollPoint+50)<rectObj.height*(i+1)){
                         scrollPoint+=50;
                         document.getElementById("slider").scrollTo(0,scrollPoint);
                             
@@ -76,7 +76,7 @@ class Slider extends React.Component{
                         clearInterval(timerID);
                     }
                 }else{
-                    if(scrollPoint>rectObj.height*(i-1)){
+                    if((scrollPoint-50)>rectObj.height*(i-1)){
                         scrollPoint-=50;
                         document.getElementById("slider").scrollTo(0,scrollPoint);    
                     }else{
@@ -102,7 +102,7 @@ class Slider extends React.Component{
         let scrollPoint=rectObj.height*i;
         function scroller(dir,timerID){
             if(dir){
-                if(scrollPoint<rectObj.height*(i+1)){
+                if((scrollPoint+50)<rectObj.height*(i+1)){
                     scrollPoint+=50;
                     document.getElementById("slider").scrollTo(0,scrollPoint);
                         
@@ -111,7 +111,7 @@ class Slider extends React.Component{
                     clearInterval(timerID);
                 }
             }else{
-                if(scrollPoint>rectObj.height*(i-1)){
+                if((scrollPoint-50)>rectObj.height*(i-1)){
                     scrollPoint-=50;
                     document.getElementById("slider").scrollTo(0,scrollPoint);    
                 }else{
