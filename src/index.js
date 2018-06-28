@@ -6,6 +6,8 @@ import X from 'react-feather/dist/icons/x';
 import Circle from 'react-feather/dist/icons/circle';
 import Particles from 'reactparticles.js';
 import HomeProfile from './assets/images/home_profile.jpg'
+import Up from 'react-feather/dist/icons/chevron-up';
+import Down from 'react-feather/dist/icons/chevron-down';
 function generateMenu(i){
     return(<Menu name={this.menuList[i]} 
         onWheel={(function(event){
@@ -18,6 +20,7 @@ function generateMenu(i){
                     return false;}).bind(this) } 
             />);
 }
+
 class Header extends React.Component{
     render(){
         return(
@@ -156,13 +159,127 @@ class Slider extends React.Component{
         );
     }
 }
+
+
+
+class WorksSlider extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={active:0,number:2};
+        this.handleClick=this.handleClick.bind(this);
+    }
+    
+    handleClick(i,event,dirFlag){
+            event.preventDefault();
+            event.stopPropagation();
+            let rectObj=document.getElementById("works").children[i].getBoundingClientRect();
+            let scrollPoint=rectObj.height*i;
+            function scroller(dir,timerID){
+                if(dir){
+                    if((scrollPoint+50)<rectObj.height*(i+1)){
+                        scrollPoint+=50;
+                        document.getElementById("works").scrollTo(0,scrollPoint);
+                            
+                    }else{
+                        document.getElementById("works").scrollTo(0,rectObj.height*(i+1));
+                        clearInterval(timerID);
+                    }
+                }else{
+                    if((scrollPoint-50)>rectObj.height*(i-1)){
+                        scrollPoint-=50;
+                        document.getElementById("works").scrollTo(0,scrollPoint);    
+                    }else{
+                        document.getElementById("works").scrollTo(0,rectObj.height*(i-1));
+                        clearInterval(timerID);
+                    }
+                }
+
+            }
+            if(dirFlag===0){
+                let timerID=setInterval(()=>scroller(1,timerID),10);
+                this.setState(
+                    function(prevState,props){
+                        if(prevState.active!==prevState.number){
+                            return {active:prevState.active+1};
+                        }
+                        return {active:prevState.number};
+                    }
+                );
+            }
+            if(dirFlag===1){
+                let timerID=setInterval(()=>scroller(0,timerID),10);
+                this.setState(
+                    function(prevState,props){
+                        if(prevState.active!==0){
+                            return {active:prevState.active-1};
+                        }
+                        return {active:0};
+                    }
+                );
+            } 
+                     
+        
+    }
+
+    render(){
+        return(
+            <div id="works">
+                <section>
+                    <div>
+                        <h1>Book Keeping CRUD application</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan nibh sit amet sem eleifend tincidunt. Fusce vehicula semper consectetur. Cras sagittis ante vel metus mattis fringilla. Nunc et dui ut arcu posuere dictum sit amet eget ligula. Vivamus leo ante, auctor ut tellus non, consectetur viverra lectus. Maecenas sodales, mauris quis aliquet condimentum, ante metus consectetur odio, vitae pellentesque justo lorem vel odio. Ut porta tincidunt eros, sit amet fringilla felis venenatis vitae.</p>
+                        <a href="#">More...</a>
+                        <a href="#">Github</a>
+                    </div>                    
+                </section>
+                <section>
+                    <div>
+                        <h1>Book Keeping CRUD application</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan nibh sit amet sem eleifend tincidunt. Fusce vehicula semper consectetur. Cras sagittis ante vel metus mattis fringilla. Nunc et dui ut arcu posuere dictum sit amet eget ligula. Vivamus leo ante, auctor ut tellus non, consectetur viverra lectus. Maecenas sodales, mauris quis aliquet condimentum, ante metus consectetur odio, vitae pellentesque justo lorem vel odio. Ut porta tincidunt eros, sit amet fringilla felis venenatis vitae.</p>
+                        <a href="#">More...</a>
+                        <a href="#">Github</a>
+                    </div>                    
+                </section>
+                <section>
+                    <div>
+                        <h1>Book Keeping CRUD application</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan nibh sit amet sem eleifend tincidunt. Fusce vehicula semper consectetur. Cras sagittis ante vel metus mattis fringilla. Nunc et dui ut arcu posuere dictum sit amet eget ligula. Vivamus leo ante, auctor ut tellus non, consectetur viverra lectus. Maecenas sodales, mauris quis aliquet condimentum, ante metus consectetur odio, vitae pellentesque justo lorem vel odio. Ut porta tincidunt eros, sit amet fringilla felis venenatis vitae.</p>
+                        <a href="#">More...</a>
+                        <a href="#">Github</a>
+                    </div>                    
+                </section>
+                <div onClick={
+                    (function(event){
+                        this.handleClick(this.state.active,event,1);
+                    }).bind(this)
+                } id="up">          
+                    <Up color='rgb(248, 238, 231)' size={36} id="caret-up" />
+                </div>
+                <div onClick={
+                    (function(event){
+                        this.handleClick(this.state.active,event,0);
+                    }).bind(this)
+                } id="down" >
+                    <Down color='rgb(248, 238, 231)' size={36} id="caret-down" /> 
+                </div>                               
+            </div>
+        );
+    }
+}
+
+
+
+
+
 class Content extends React.Component{
     constructor(props){
         super(props);
+        this.generateContent=this.generateContent.bind(this);
     }
-    render(){
-        return(
-            <div id="content-box">
+
+    generateContent(focus){
+        if(focus===0){
+            return(
                 <div id="home">
                     <div>
                         <h1>McDhee,</h1>
@@ -175,12 +292,20 @@ class Content extends React.Component{
                             <span>Full stack web developer,&nbsp;</span>Machine Learning Enthusiast,&nbsp;
                             <span>&nbsp;Comic</span> and <span>a perfectionist</span> with love for open source software.
                         </p>
-                    </div>
-                    
-                    
-                    
+                    </div>                   
                 </div>
+            );
+        }else if(focus===1){
+            return(
+                <WorksSlider/>
+            );
+        }
+    }
 
+    render(){
+        return(
+            <div id="content-box">
+                {this.generateContent(this.props.focus)}
             </div>
         );
     }
@@ -191,6 +316,12 @@ class Box extends React.Component{
         this.state={active:0};
         this.updateState=this.updateState.bind(this);
     }
+    componentWillMount(){
+        this.setState({active:0});
+    }
+    componentWillUnMount(){
+        this.setState({active:0});
+    }
     updateState(i,dir){
         this.setState({active:(dir?(i===3?i:i+1):(i===0?i:i-1))});
     }
@@ -198,7 +329,7 @@ class Box extends React.Component{
         return(
             <div className="box">
                 <Slider update={this.updateState} focus={this.state.active}/>
-                <Content/>
+                <Content focus={this.state.active}/>
             </div>
             
         );
