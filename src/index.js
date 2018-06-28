@@ -8,6 +8,29 @@ import Particles from 'reactparticles.js';
 import HomeProfile from './assets/images/home_profile.jpg'
 import Up from 'react-feather/dist/icons/chevron-up';
 import Down from 'react-feather/dist/icons/chevron-down';
+function traverser(opacity,root){
+    if(root.children.length===0){
+        return;
+    }else{
+        root.style.opacity=opacity;
+        for(let i=0;i<root.children.length;i++){
+            traverser(opacity,root.children[i]);
+        }
+    }
+}
+function fader(rootId){
+    let root=document.getElementById(rootId);
+    let opacity=0;
+    function callback(ID){
+        if(opacity<=1.0){
+            opacity=opacity+0.1;
+            traverser(opacity,root);
+        }else{
+            clearInterval(ID);
+        }                
+    }
+    let timerID=setInterval(()=>callback(timerID),50);       
+}
 function generateMenu(i){
     return(<Menu name={this.menuList[i]} 
         onWheel={(function(event){
@@ -20,7 +43,6 @@ function generateMenu(i){
                     return false;}).bind(this) } 
             />);
 }
-
 class Header extends React.Component{
     render(){
         return(
@@ -32,6 +54,10 @@ class Header extends React.Component{
     }
 }
 class Menu extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    
     render(){
         return(
             <li onWheel={this.props.onWheel}><div>{this.props.name}</div></li>
@@ -71,20 +97,20 @@ class Slider extends React.Component{
             let scrollPoint=rectObj.height*i;
             function scroller(dir,timerID){
                 if(dir){
-                    if((scrollPoint+50)<rectObj.height*(i+1)){
-                        scrollPoint+=50;
-                        document.getElementById("slider").scrollTo(0,scrollPoint);
+                    if((scrollPoint+30)<rectObj.height*(i+1)){
+                        scrollPoint+=30;
+                        document.getElementById("slider").scrollTo({top:scrollPoint,behaviour:'smooth'});
                             
                     }else{
-                        document.getElementById("slider").scrollTo(0,rectObj.height*(i+1));
+                        document.getElementById("slider").scrollTo({top:rectObj.height*(i+1),behaviour:'smooth'});
                         clearInterval(timerID);
                     }
                 }else{
-                    if((scrollPoint-50)>rectObj.height*(i-1)){
-                        scrollPoint-=50;
-                        document.getElementById("slider").scrollTo(0,scrollPoint);    
+                    if((scrollPoint-30)>rectObj.height*(i-1)){
+                        scrollPoint-=30;
+                        document.getElementById("slider").scrollTo({top:scrollPoint,behaviour:'smooth'});    
                     }else{
-                        document.getElementById("slider").scrollTo(0,rectObj.height*(i-1));
+                        document.getElementById("slider").scrollTo({top:rectObj.height*(i-1),behaviour:'smooth'});
                         clearInterval(timerID);
                     }
                 }
@@ -106,20 +132,20 @@ class Slider extends React.Component{
         let scrollPoint=rectObj.height*i;
         function scroller(dir,timerID){
             if(dir){
-                if((scrollPoint+50)<rectObj.height*(i+1)){
-                    scrollPoint+=50;
-                    document.getElementById("slider").scrollTo(0,scrollPoint);
+                if((scrollPoint+30)<rectObj.height*(i+1)){
+                    scrollPoint+=30;
+                    document.getElementById("slider").scrollTo({top:scrollPoint,behaviour:'smooth'});
                         
                 }else{
-                    document.getElementById("slider").scrollTo(0,rectObj.height*(i+1));
+                    document.getElementById("slider").scrollTo({top:rectObj.height*(i+1),behaviour:'smooth'});
                     clearInterval(timerID);
                 }
             }else{
-                if((scrollPoint-50)>rectObj.height*(i-1)){
-                    scrollPoint-=50;
-                    document.getElementById("slider").scrollTo(0,scrollPoint);    
+                if((scrollPoint-30)>rectObj.height*(i-1)){
+                    scrollPoint-=30;
+                    document.getElementById("slider").scrollTo({top:scrollPoint,behaviour:'smooth'});    
                 }else{
-                    document.getElementById("slider").scrollTo(0,rectObj.height*(i-1));
+                    document.getElementById("slider").scrollTo({top:rectObj.height*(i-1),behaviour:'smooth'});
                     clearInterval(timerID);
                 }
             }
@@ -159,9 +185,6 @@ class Slider extends React.Component{
         );
     }
 }
-
-
-
 class WorksSlider extends React.Component{
     constructor(props){
         super(props);
@@ -176,20 +199,20 @@ class WorksSlider extends React.Component{
             let scrollPoint=rectObj.height*i;
             function scroller(dir,timerID){
                 if(dir){
-                    if((scrollPoint+50)<rectObj.height*(i+1)){
-                        scrollPoint+=50;
-                        document.getElementById("works").scrollTo(0,scrollPoint);
+                    if((scrollPoint+30)<rectObj.height*(i+1)){
+                        scrollPoint+=30;
+                        document.getElementById("works").scrollTo({top:scrollPoint,behaviour:'smooth'});
                             
                     }else{
-                        document.getElementById("works").scrollTo(0,rectObj.height*(i+1));
+                        document.getElementById("works").scrollTo({top:rectObj.height*(i+1),behaviour:'smooth'});
                         clearInterval(timerID);
                     }
                 }else{
-                    if((scrollPoint-50)>rectObj.height*(i-1)){
-                        scrollPoint-=50;
-                        document.getElementById("works").scrollTo(0,scrollPoint);    
+                    if((scrollPoint-30)>rectObj.height*(i-1)){
+                        scrollPoint-=30;
+                        document.getElementById("works").scrollTo({top:scrollPoint,behaviour:'smooth'});    
                     }else{
-                        document.getElementById("works").scrollTo(0,rectObj.height*(i-1));
+                        document.getElementById("works").scrollTo({top:rectObj.height*(i-1),behaviour:'smooth'});
                         clearInterval(timerID);
                     }
                 }
@@ -220,6 +243,12 @@ class WorksSlider extends React.Component{
                      
         
     }
+    
+    componentDidMount(){
+        traverser(0,document.getElementById("works"))
+        fader("works");
+    }
+
 
     render(){
         return(
@@ -266,11 +295,33 @@ class WorksSlider extends React.Component{
         );
     }
 }
-
-
-
-
-
+class Home extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    componentDidMount(){
+        traverser(0,document.getElementById("home"))
+        fader("home");
+    }
+    render(){
+        return(
+            <div id="home">
+                <div >
+                    <h1 >McDhee,</h1>
+                    <p >                        
+                        the creative portfolio of 
+                    </p>
+                    <h1>Dheeraj Mohan</h1>
+                    <hr/>
+                    <p>
+                        <span>Full stack web developer,&nbsp;</span>Machine Learning Enthusiast,&nbsp;
+                        <span>&nbsp;Comic</span> and <span>a perfectionist</span> with love for open source software.
+                    </p>
+                </div>                   
+            </div>
+        );
+    }
+}
 class Content extends React.Component{
     constructor(props){
         super(props);
@@ -280,20 +331,7 @@ class Content extends React.Component{
     generateContent(focus){
         if(focus===0){
             return(
-                <div id="home">
-                    <div>
-                        <h1>McDhee,</h1>
-                        <p>                        
-                            the creative portfolio of 
-                        </p>
-                        <h1>Dheeraj Mohan</h1>
-                        <hr/>
-                        <p>
-                            <span>Full stack web developer,&nbsp;</span>Machine Learning Enthusiast,&nbsp;
-                            <span>&nbsp;Comic</span> and <span>a perfectionist</span> with love for open source software.
-                        </p>
-                    </div>                   
-                </div>
+                <Home/>
             );
         }else if(focus===1){
             return(
